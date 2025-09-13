@@ -52,9 +52,17 @@ pipeline {
 
         stage('AWS ECR Login') {
             steps {
-                script {
-                    // AWS ECR 로그인 수행
-                    sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-credentials']]) {
+                        script {
+                            // AWS ECR 로그인 수행
+                            sh """
+                            aws ecr get-login-password --region ${AWS_REGION} | \
+                            docker login --username AWS --password-stdin ${ECR_REPO}
+                            """
+                        }
+                    }
                 }
             }
         }
