@@ -37,7 +37,7 @@ pipeline {
             steps {
                 sh "chmod +x ./gradlew"
                 // gradle 빌드하기
-                sh "./gradlew clean build"
+                sh "./gradlew build"
             }
         }
 
