@@ -9,6 +9,9 @@ pipeline {
     }
 
     stages {
+
+        // CI
+
         stage('Ensure ECR Exists') {
             steps {
                 withCredentials([[
